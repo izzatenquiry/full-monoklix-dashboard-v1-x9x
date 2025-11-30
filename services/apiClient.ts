@@ -231,7 +231,7 @@ export const executeProxiedRequest = async (
               const lowerMsg = errorMessage.toLowerCase();
 
               if (status === 400 || lowerMsg.includes('safety') || lowerMsg.includes('blocked')) {
-                  console.warn(`[API Client] 🛑 Non-retriable error (${status}). Prompt issue.`);
+                  console.warn(`[API Client] 🛑 The request was stopped due to content restrictions (${status}).`);
                   // ADDED: Include status code in error message for easier detection downstream
                   throw new Error(`[${status}] ${errorMessage}`);
               }
@@ -240,7 +240,7 @@ export const executeProxiedRequest = async (
                   errorMessage = `${errorMessage} (Personal quota exceeded. Switch to Hybrid Mode to use shared tokens)`;
               }
 
-              console.warn(`[API Client] ⚠️ Attempt ${i + 1} failed (${status}). Trying next...`);
+              console.warn(`[API Client] 🚫 Connection could not be completed (Attempt ${i + 1}).`);
               if (isLastAttempt) throw new Error(errorMessage);
               continue;
           }

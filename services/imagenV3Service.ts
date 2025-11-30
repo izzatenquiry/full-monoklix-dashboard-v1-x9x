@@ -177,7 +177,7 @@ export const editOrComposeWithImagen = async (request: {
             console.log(`🎨 [Imagen Service] Processing input image ${i + 1} (resize/crop)...`);
             processedBase64 = await cropImageToAspectRatio(img.base64, request.config.aspectRatio || '1:1');
         } catch (cropError) {
-            console.warn(`⚠️ [Imagen Service] Failed to process image ${i + 1}, using original.`, cropError);
+            console.warn(`🖼️ The image could not be processed (resize/crop). Using original.`, cropError);
         }
 
         // Use consistentToken if we have one from a previous successful upload in this loop

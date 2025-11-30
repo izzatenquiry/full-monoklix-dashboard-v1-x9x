@@ -366,7 +366,7 @@ export const assignPersonalTokenAndIncrementUsage = async (userId: string, token
         if (rpcSuccess !== true) {
             // This is not an error, but a normal race condition outcome. The slot was taken.
             const message = `Token usage limit was reached at the time of assignment. Trying next token.`;
-            console.log(`Token slot for ...${token.slice(-6)} was taken by another user. Trying next token.`);
+            console.warn(`[Auto-Assign] 🔒 Token ...${token.slice(-6)} could not be used. Processing has ended.`);
             return { success: false, message: message };
         }
 

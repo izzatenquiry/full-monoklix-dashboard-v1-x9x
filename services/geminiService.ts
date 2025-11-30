@@ -126,7 +126,7 @@ export const streamChatResponse = async (chat: Chat, prompt: string) => {
     try {
         const stream = await withRetry(apiCall, (attempt, error) => {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${attempt} to start streamChatResponse failed: ${errorMessage}. Retrying...`);
+            console.warn(`📡 The system has stopped processing this request (Attempt ${attempt}).`);
             addLogEntry({
                 model,
                 prompt: `${prompt} (Retry ${attempt}/${MAX_RETRIES})`,
@@ -255,7 +255,7 @@ export const generateVideo = async (
             // UPDATED: Check status using the SAME token
             const statusResponse = await checkVideoStatus(finalOperations, videoCreationToken, onStatusUpdate);
             if (!statusResponse?.operations || statusResponse.operations.length === 0) {
-                console.warn('⚠️ Empty status response, retrying...');
+                console.warn('🎬 Video status unavailable. Processing stopped temporarily...');
                 continue;
             }
 
@@ -346,7 +346,7 @@ export const generateMultimodalContent = async (prompt: string, images: Multimod
     try {
         const response = await withRetry(apiCall, (attempt, error) => {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${attempt} for generateMultimodalContent failed: ${errorMessage}. Retrying...`);
+            console.warn(`📡 The system has stopped processing this request (Attempt ${attempt}).`);
             addLogEntry({
                 model,
                 prompt: `${logPrompt} (Retry ${attempt}/${MAX_RETRIES})`,
@@ -397,7 +397,7 @@ export const generateText = async (prompt: string): Promise<string> => {
     try {
         const response = await withRetry(apiCall, (attempt, error) => {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${attempt} for generateText failed: ${errorMessage}. Retrying...`);
+            console.warn(`📡 The system has stopped processing this request (Attempt ${attempt}).`);
             addLogEntry({
                 model,
                 prompt: `${prompt.substring(0, 100)}... (Retry ${attempt}/${MAX_RETRIES})`,
@@ -449,7 +449,7 @@ export const generateContentWithGoogleSearch = async (prompt: string): Promise<G
     try {
         const response = await withRetry(apiCall, (attempt, error) => {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${attempt} for generateContentWithGoogleSearch failed: ${errorMessage}. Retrying...`);
+            console.warn(`📡 The system has stopped processing this request (Attempt ${attempt}).`);
             addLogEntry({
                 model: `${model} (Search)`,
                 prompt: `${prompt} (Retry ${attempt}/${MAX_RETRIES})`,
@@ -554,7 +554,7 @@ export const generateVoiceOver = async (
     try {
         const response = await withRetry(apiCall, (attempt, error) => {
             const errorMessage = error instanceof Error ? error.message : String(error);
-            console.warn(`Attempt ${attempt} for generateVoiceOver failed: ${errorMessage}. Retrying...`);
+            console.warn(`📡 The system has stopped processing this request (Attempt ${attempt}).`);
             addLogEntry({
                 model,
                 prompt: `${webhookPrompt} (Retry ${attempt}/${MAX_RETRIES})`,

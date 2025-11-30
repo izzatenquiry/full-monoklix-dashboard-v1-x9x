@@ -85,7 +85,7 @@ export const getHistory = async (): Promise<HistoryItem[]> => {
             return { ...item, result: cachedBlob };
           } else {
             // Video was evicted from cache or corrupted. Mark it as unavailable.
-            console.warn(`⚠️ Cached video not found: ${videoId}`);
+            console.warn(`📦 Required file not found. The process has ended for ${videoId}`);
             return { ...item, result: 'unavailable' };
           }
         }
@@ -124,7 +124,7 @@ export const deleteHistoryItem = async (id: string): Promise<void> => {
     const itemIndex = history.findIndex(item => item.id === id);
     
     if (itemIndex === -1) {
-      console.warn('⚠️ History item not found:', id);
+      console.warn('📦 History item not found. Process ended:', id);
       return;
     }
 
